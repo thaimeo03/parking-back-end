@@ -1,9 +1,9 @@
+import { DatabaseModule } from '@app/database'
 import { Module } from '@nestjs/common'
-import { HelloWorldController } from './hello-world/hello-world.controller';
 
 @Module({
-  imports: [],
-  controllers: [HelloWorldController],
+  imports: [DatabaseModule],
+  controllers: [],
   providers: []
 })
 export class UserManagementServiceModule {}
