@@ -1,3 +1,4 @@
+import { ROLE } from '@app/common/enums/role.enum'
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
@@ -24,7 +25,8 @@ export class User {
 
   @Column({
     type: 'enum',
-    enum: ['RENTER', 'PARKING_OWNER']
+    enum: [ROLE.RENTER, ROLE.PARKING_OWNER],
+    default: ROLE.RENTER
   })
   role: string
 

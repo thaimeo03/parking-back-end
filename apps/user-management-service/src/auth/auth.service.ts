@@ -1,21 +1,13 @@
-import { User } from '@app/database/entities/user.entity'
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+  constructor(private jwtService: JwtService) {}
 
-  async testAuth() {
-    const user = this.userRepository.create({
-      email: 'admin3',
-      name: 'admin',
-      password: 'admin',
-      avatar: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
-      role: 'PARKING_OWNER'
-    })
+  async generateToken() {}
 
-    return this.userRepository.save(user)
-  }
+  async generateAccessToken() {}
+
+  async generateRefreshToken() {}
 }

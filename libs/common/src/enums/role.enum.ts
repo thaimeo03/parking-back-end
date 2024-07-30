@@ -1,0 +1,4 @@
+export enum ROLE {
+  RENTER = 'RENTER',
+  PARKING_OWNER = 'PARKING_OWNER'
+}
