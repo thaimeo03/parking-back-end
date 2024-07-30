@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
 export class User {
@@ -12,4 +12,31 @@ export class User {
 
   @Column()
   password: string
+
+  @Column()
+  name: string
+
+  @Column({
+    nullable: true,
+    type: 'text'
+  })
+  avatar: string
+
+  @Column({
+    type: 'enum',
+    enum: ['RENTER', 'PARKING_OWNER']
+  })
+  role: string
+
+  @Column({
+    unique: true,
+    nullable: true
+  })
+  refreshToken: string
+
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
 }
