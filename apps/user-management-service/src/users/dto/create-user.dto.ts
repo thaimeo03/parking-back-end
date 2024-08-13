@@ -1,5 +1,5 @@
+import { IsMatchPassword } from '@app/common/decorators/validation.de'
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator'
-import { IsMatchPassword } from '../decorators/validation.de'
 
 export class CreateUserDto {
   @IsNotEmpty()

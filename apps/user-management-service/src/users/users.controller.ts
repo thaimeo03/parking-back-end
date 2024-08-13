@@ -5,9 +5,9 @@ import { ResponseData } from '@app/common/core/response.core'
 import { LoginDto } from './dto/login.dto'
 import { USER_MESSAGE_SUCCESS } from './constants/message.constant'
 import { Request, Response } from 'express'
-import { AuthenticationGuard } from 'apps/user-management-service/src/auth/guards/authentication.guard'
-import { Roles } from '../auth/decorators/roles.decorator'
+import { AuthenticationGuard } from '@app/common/auth/guards/authentication.guard'
 import { ROLE } from '@app/common/enums/role.enum'
+import { Roles } from '@app/common/decorators/roles.decorator'
 
 @Controller('users')
 export class UsersController {
@@ -37,10 +37,10 @@ export class UsersController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthenticationGuard)
-  @Roles(ROLE.PARKING_OWNER)
+  @Roles(ROLE.RENTER)
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    await res.clearCookie('access_token')
-    res.clearCookie('refresh_token')
+    // res.clearCookie('access_token')
+    // res.clearCookie('refresh_token')
 
     return new ResponseData({ message: 'Logout success' })
   }
