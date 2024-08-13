@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { JwtModule } from '@nestjs/jwt'
-import { ConfigModule } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { User } from '@app/database/entities/user.entity'
+import { AuthenticationStrategy } from './strategies/authentication.strategy'
 
 @Module({
-  imports: [ConfigModule, JwtModule.register({ global: true })],
+  imports: [JwtModule.register({ global: true }), TypeOrmModule.forFeature([User])],
   controllers: [],
-  providers: [AuthService],
+  providers: [AuthService, AuthenticationStrategy],
   exports: [AuthService]
 })
 export class AuthModule {}

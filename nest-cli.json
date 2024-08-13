@@ -45,6 +45,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
+    },
+    "vehicle-management-service": {
+      "type": "application",
+      "root": "apps/vehicle-management-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/vehicle-management-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/vehicle-management-service/tsconfig.app.json"
+      }
     }
   }
 }
