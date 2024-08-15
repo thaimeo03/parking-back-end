@@ -1,13 +1,14 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { CreateUserDto } from './dto/create-user.dto'
+import { CreateUserDto } from '../../../../libs/common/src/dto/users/create-user.dto'
 import { ResponseData } from '@app/common/core/response.core'
-import { LoginDto } from './dto/login.dto'
 import { USER_MESSAGE_SUCCESS } from './constants/message.constant'
 import { Request, Response } from 'express'
 import { AuthenticationGuard } from '@app/common/auth/guards/authentication.guard'
 import { ROLE } from '@app/common/enums/role.enum'
 import { Roles } from '@app/common/decorators/roles.decorator'
+import { MessagePattern } from '@nestjs/microservices'
+import { LoginDto } from '@app/common/dto/users/login.dto'
 
 @Controller('users')
 export class UsersController {
@@ -17,21 +18,24 @@ export class UsersController {
   async register(@Body() createUserDto: CreateUserDto, @Res({ passthrough: true }) res: Response) {
     const { accessToken, refreshToken } = await this.usersService.register(createUserDto)
 
-    res.cookie('accessToken', accessToken)
-    res.cookie('refreshToken', refreshToken)
+    // res.cookie('accessToken', accessToken)
+    // res.cookie('refreshToken', refreshToken)
 
-    return new ResponseData({ message: USER_MESSAGE_SUCCESS.REGISTER_SUCCESS })
+    // return new ResponseData({ message: USER_MESSAGE_SUCCESS.REGISTER_SUCCESS })
+
+    return { accessToken, refreshToken }
   }
 
-  @Post('login')
-  @HttpCode(HttpStatus.OK)
-  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
+  @MessagePattern({ cmd: 'login' })
+  async login(loginDto: LoginDto) {
     const { accessToken, refreshToken } = await this.usersService.login(loginDto)
 
-    res.cookie('access_token', accessToken)
-    res.cookie('refresh_token', refreshToken)
+    // res.cookie('access_token', accessToken)
+    // res.cookie('refresh_token', refreshToken)
 
-    return new ResponseData({ message: USER_MESSAGE_SUCCESS.LOGIN_SUCCESS })
+    // return new ResponseData({ message: USER_MESSAGE_SUCCESS.LOGIN_SUCCESS })
+
+    return { accessToken, refreshToken }
   }
 
   @Post('logout')

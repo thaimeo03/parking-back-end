@@ -2,10 +2,10 @@ import { User } from '@app/database/entities/user.entity'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { CreateUserDto } from './dto/create-user.dto'
+import { CreateUserDto } from '../../../../libs/common/src/dto/users/create-user.dto'
 import { AuthService } from '@app/common/auth/auth.service'
 import * as bcrypt from 'bcrypt'
-import { LoginDto } from './dto/login.dto'
+import { LoginDto } from '../../../../libs/common/src/dto/users/login.dto'
 import { USER_MESSAGE_ERRORS } from './constants/message.constant'
 
 @Injectable()

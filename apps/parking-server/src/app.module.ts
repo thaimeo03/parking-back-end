@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common'
 import { HelloWorldModule } from './hello-world/hello-world.module'
-import { UsersController } from './users/users.controller';
-import { UsersModule } from './users/users.module';
-import { UsersModule } from './users/users.module';
+import { UsersController } from './users/users.controller'
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [HelloWorldModule, UsersModule],
