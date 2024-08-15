@@ -3,7 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { CreateUserDto } from './dto/create-user.dto'
-import { AuthService } from '../../../../libs/common/src/auth/auth.service'
+import { AuthService } from '@app/common/auth/auth.service'
 import * as bcrypt from 'bcrypt'
 import { LoginDto } from './dto/login.dto'
 import { USER_MESSAGE_ERRORS } from './constants/message.constant'
@@ -72,4 +72,11 @@ export class UsersService {
 
     return { accessToken, refreshToken }
   }
+
+  // 1. Find user and update refresh token is null
+  async logout(userId: string) {}
+
+  // 1. Generate token (access token, refresh token) taken from auth service
+  // 2. Save new refresh token and return token
+  async refreshToken(userId: string) {}
 }

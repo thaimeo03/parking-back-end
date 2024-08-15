@@ -6,7 +6,7 @@ import { User } from '@app/database/entities/user.entity'
 import { AuthenticationStrategy } from './strategies/authentication.strategy'
 
 @Module({
-  imports: [JwtModule.register({ global: true }), TypeOrmModule.forFeature([User])],
+  imports: [JwtModule, TypeOrmModule.forFeature([User])],
   controllers: [],
   providers: [AuthService, AuthenticationStrategy],
   exports: [AuthService]

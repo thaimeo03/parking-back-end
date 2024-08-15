@@ -39,9 +39,23 @@ export class UsersController {
   @UseGuards(AuthenticationGuard)
   @Roles(ROLE.RENTER)
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    const userId = req.user['userId'] as string
+    await this.usersService.logout(userId)
     // res.clearCookie('access_token')
     // res.clearCookie('refresh_token')
 
     return new ResponseData({ message: 'Logout success' })
+  }
+
+  @Post('refresh-token')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthenticationGuard)
+  async refreshToken(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    const userId = req.user['userId'] as string
+
+    // const { accessToken, refreshToken } = await this.usersService.refreshToken(userId)
+
+    // res.cookie('access_token', accessToken)
+    // res.cookie('refresh_token', refreshToken)
   }
 }
