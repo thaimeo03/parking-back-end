@@ -1,6 +1,6 @@
-import { BaseExceptionFilter, HttpAdapterHost, NestFactory } from '@nestjs/core'
+import { HttpAdapterHost, NestFactory } from '@nestjs/core'
 import { UserManagementServiceModule } from './user-management-service.module'
-import { MicroserviceOptions, Transport } from '@nestjs/microservices'
+import { BaseRpcExceptionFilter, MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { ValidationPipe } from '@nestjs/common'
 
 async function bootstrap() {
@@ -12,10 +12,8 @@ async function bootstrap() {
     }
   })
 
-  const { httpAdapter } = app.get(HttpAdapterHost)
-
   app.useGlobalPipes(new ValidationPipe()) // Validation pipe is global
-  app.useGlobalFilters(new BaseExceptionFilter(httpAdapter)) // Exception filter is global
+  app.useGlobalFilters(new BaseRpcExceptionFilter()) // Exception filter is global
 
   await app.listen()
 }

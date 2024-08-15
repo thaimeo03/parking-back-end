@@ -2,7 +2,7 @@ import { ExecutionContext, ForbiddenException, UnauthorizedException } from '@ne
 import { Reflector } from '@nestjs/core'
 import { AuthGuard } from '@nestjs/passport'
 import { ROLE } from '@app/common/enums/role.enum'
-import { ROLES_KEY } from '../../decorators/roles.decorator'
+import { ROLES_KEY } from '@app/common/decorators/roles.decorator'
 
 export class AuthenticationGuard extends AuthGuard('authentication') {
   private reflector = new Reflector()

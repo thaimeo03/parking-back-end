@@ -5,5 +5,6 @@ export const USER_MESSAGE_ERRORS = {
 
 export const USER_MESSAGE_SUCCESS = {
   REGISTER_SUCCESS: 'Register success',
-  LOGIN_SUCCESS: 'Login success'
+  LOGIN_SUCCESS: 'Login success',
+  LOGOUT_SUCCESS: 'Logout success'
 }

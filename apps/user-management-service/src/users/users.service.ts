@@ -1,12 +1,13 @@
 import { User } from '@app/database/entities/user.entity'
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { CreateUserDto } from '../../../../libs/common/src/dto/users/create-user.dto'
 import { AuthService } from '@app/common/auth/auth.service'
+import { CreateUserDto } from '@app/common/dto/users/create-user.dto'
+import { USER_MESSAGE_ERRORS } from '@app/common/constants/users/message.constant'
+import { LoginDto } from '@app/common/dto/users/login.dto'
+import { BadRequestRpcException } from '@app/common/core/error-response.core'
 import * as bcrypt from 'bcrypt'
-import { LoginDto } from '../../../../libs/common/src/dto/users/login.dto'
-import { USER_MESSAGE_ERRORS } from './constants/message.constant'
 
 @Injectable()
 export class UsersService {
@@ -25,7 +26,7 @@ export class UsersService {
     const isExist = await this.userRepository.findOneBy({
       email: createUserDto.email
     })
-    if (isExist) throw new BadRequestException(USER_MESSAGE_ERRORS.EMAIL_ALREADY_EXISTS)
+    if (isExist) throw new BadRequestRpcException(USER_MESSAGE_ERRORS.EMAIL_ALREADY_EXISTS)
 
     // 2
     const passwordHash = await bcrypt.hash(createUserDto.password, 10)
@@ -58,11 +59,11 @@ export class UsersService {
       email: loginDto.email
     })
 
-    if (!user) throw new BadRequestException(USER_MESSAGE_ERRORS.EMAIL_PASSWORD_INCORRECT)
+    if (!user) throw new BadRequestRpcException(USER_MESSAGE_ERRORS.EMAIL_PASSWORD_INCORRECT)
 
     // 2
     const isMatch = await bcrypt.compare(loginDto.password, user.password)
-    if (!isMatch) throw new BadRequestException(USER_MESSAGE_ERRORS.EMAIL_PASSWORD_INCORRECT)
+    if (!isMatch) throw new BadRequestRpcException(USER_MESSAGE_ERRORS.EMAIL_PASSWORD_INCORRECT)
 
     // 3
     const { accessToken, refreshToken } = await this.authService.generateToken(user.id)
@@ -74,7 +75,9 @@ export class UsersService {
   }
 
   // 1. Find user and update refresh token is null
-  async logout(userId: string) {}
+  async logout(userId: string) {
+    return 1
+  }
 
   // 1. Generate token (access token, refresh token) taken from auth service
   // 2. Save new refresh token and return token
